@@ -1,0 +1,19 @@
+.todo-app ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  border: 1px solid;
+  border-radius: 10px;
+}
+.todo-app ul li {
+  width: 50%;
+  text-align: center;
+}
+.todo-app .active {
+  background: red;
+  border-radius: 10px;
+  color: white;
+}
+
+/*# sourceMappingURL=index.css.map */
