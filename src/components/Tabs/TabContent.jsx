@@ -43,7 +43,10 @@ const TabContent = ({
                                     TODO
                                 </button>
                             )}
-                            <button onClick={() => onHandleDeleteClick(elem)}>
+                            <button
+                                onClick={() => onHandleDeleteClick(elem)}
+                                value="Delete"
+                            >
                                 <Delete
                                     className="delete-task"
                                     title="Delete"

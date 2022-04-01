@@ -6,6 +6,7 @@ const Tabs = () => {
     const [allTask, setAllTask] = useState([]);
     const [addItems, setAddItems] = useState("");
     const [addStatus, setAddStatus] = useState(false);
+    const [isCompletedTask, setIsCompletedTask] = useState(false);
 
     const handleAdd = (elem, e) => {
         e.preventDefault();
@@ -23,6 +24,7 @@ const Tabs = () => {
     const handleDeleteClick = (elem) => {
         const filteredList = allTask.filter((x) => x.item !== elem.item);
         setAllTask([...filteredList]);
+        setAddStatus(false);
     };
 
     const handleCompletedClick = (elem, e) => {
@@ -39,32 +41,67 @@ const Tabs = () => {
         else setAddStatus(false);
     };
 
+    const handleCheckCompletedList = () => {
+        setIsCompletedTask(true);
+    };
+
+    const handleBackToTodo = () => {
+        setIsCompletedTask(false);
+    };
+
     return (
         <div className="todo-app">
-            <h1>TODO Application</h1>
-            <AddItems
-                addItems={addItems}
-                onHandleAdd={handleAdd}
-                onHandleChange={handleChange}
-            />
-            {allTask.length > 0 && (
+            {!isCompletedTask ? (
                 <>
-                    <TabContent
-                        allTask={allTask}
-                        onHandleDeleteClick={handleDeleteClick}
-                        onHandleCompletedClick={handleCompletedClick}
+                    <h1 className="heading">TODO Application</h1>
+                    <AddItems
+                        addItems={addItems}
+                        onHandleAdd={handleAdd}
+                        onHandleChange={handleChange}
                     />
-
-                    {/* <div className="completed-list">
-                        {addStatus && <h2>Completed Tasks</h2>}
+                    {allTask.length > 0 && (
+                        <>
+                            <TabContent
+                                allTask={allTask}
+                                onHandleDeleteClick={handleDeleteClick}
+                                onHandleCompletedClick={handleCompletedClick}
+                            />
+                            {addStatus && (
+                                <button
+                                    onClick={handleCheckCompletedList}
+                                    className="secondary-btn page-btn"
+                                >
+                                    Completed tasks Lists
+                                </button>
+                            )}
+                        </>
+                    )}
+                </>
+            ) : (
+                <div className="completed-list">
+                    <h2 className="heading">Completed Tasks</h2>
+                    {!addStatus && (
+                        <p>Oops, none of your tasks are completed !</p>
+                    )}
+                    <div className="content-playground">
                         {allTask.map(
                             (x, i) =>
                                 x.status === "Complete" && (
-                                    <p key={`${x.item}-${i}`}>{x.item}</p>
+                                    <div className="content-wrapper">
+                                        <p key={`${x.item}-${i}`}>
+                                            {i + 1}. {x.item}
+                                        </p>
+                                    </div>
                                 )
                         )}
-                    </div> */}
-                </>
+                    </div>
+                    <button
+                        onClick={handleBackToTodo}
+                        className="secondary-btn page-btn"
+                    >
+                        Back to app
+                    </button>
+                </div>
             )}
         </div>
     );

@@ -12,7 +12,7 @@ const AddItems = ({ onHandleAdd, addItems, onHandleChange }) => {
                 placeholder="Add Task name"
                 onChange={onHandleChange}
             />
-            <button type="submit">Add Task</button>
+            <button type="submit" className="secondary-btn">Add Task</button>
         </form>
     );
 };
