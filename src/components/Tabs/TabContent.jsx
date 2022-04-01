@@ -1,50 +1,65 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { ReactComponent as Complete } from "../../assets/done.svg";
+import { ReactComponent as Delete } from "../../assets/delete.svg";
 
 const TabContent = ({
-    activeTabs,
     allTask,
-    handleActiveCompletedClick,
-    taskStatus,
+    onHandleDeleteClick,
+    onHandleCompletedClick,
 }) => {
     return (
-        <>
+        <div className="content-playground">
             {allTask &&
-                allTask.map(
-                    (elem) =>
-                        elem.activeTab === activeTabs && (
-                            <div key={elem.item} className={elem.activeTab}>
-                                {elem.item}
+                allTask.map((elem, i) => (
+                    <div key={`${elem.item}-${i}`} className="content-wrapper">
+                        <p
+                            className={
+                                elem.status === "Complete" ? "complete" : ""
+                            }
+                        >
+                            {i + 1}. {elem.item}
+                        </p>
+                        <div className="button-group">
+                            {elem.status !== "Complete" ? (
                                 <button
-                                    onClick={() =>
-                                        handleActiveCompletedClick(
-                                            elem,
-                                            (elem.activeTab = "Active")
-                                        )
+                                    onClick={(event) =>
+                                        onHandleCompletedClick(elem, event)
                                     }
+                                    value="Complete"
                                 >
-                                    Active
+                                    <Complete
+                                        className="complete-task"
+                                        title="Complete"
+                                    />
                                 </button>
+                            ) : (
                                 <button
-                                    onClick={() =>
-                                        handleActiveCompletedClick(
-                                            elem,
-                                            (elem.activeTab = "Completed")
-                                        )
+                                    onClick={(event) =>
+                                        onHandleCompletedClick(elem, event)
                                     }
+                                    value="TODO"
                                 >
-                                    Completed
+                                    TODO
                                 </button>
-                            </div>
-                        )
-                )}
-        </>
+                            )}
+                            <button onClick={() => onHandleDeleteClick(elem)}>
+                                <Delete
+                                    className="delete-task"
+                                    title="Delete"
+                                />
+                            </button>
+                        </div>
+                    </div>
+                ))}
+        </div>
     );
 };
 
 TabContent.propTypes = {
-    activeTabs: PropTypes.string,
-    tabName: PropTypes.array,
+    allTask: PropTypes.array,
+    onHandleDeleteClick: PropTypes.func,
+    onHandleCompletedClick: PropTypes.func,
 };
 
 export default TabContent;

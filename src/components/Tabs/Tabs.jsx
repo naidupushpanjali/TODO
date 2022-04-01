@@ -1,55 +1,71 @@
 import React, { useState } from "react";
 import TabContent from "./TabContent";
-import TabList from "./TabList";
 import AddItems from "./AddItems";
 
 const Tabs = () => {
-    const tabList = ["All", "Active", "Completed"];
-
     const [allTask, setAllTask] = useState([]);
     const [addItems, setAddItems] = useState("");
-    const [activeTabs, setActiveTabs] = useState("All");
-    const [taskStatus, setTaskStatus] = useState("All");
+    const [addStatus, setAddStatus] = useState(false);
 
-    const handleTabClick = (id) => {
-        setActiveTabs(id);
-    };
-
-    const handleAdd = (elem) => {
-        setAllTask([...allTask, { item: elem, activeTab: activeTabs }]);
+    const handleAdd = (elem, e) => {
+        e.preventDefault();
+        const taskExist = allTask.findIndex((x) => x.item === elem);
+        if (elem && taskExist < 0) {
+            setAllTask([...allTask, { status: "Active", item: elem }]);
+            setAddItems("");
+        }
     };
 
     const handleChange = (e) => {
         setAddItems(e.target.value);
     };
 
-    const handleActiveCompletedClick = (elem) => {
-        setTaskStatus(elem.activeTab);
-        const filteredAllList = [...allTask].filter((x) => x.item !== elem.item);
-        setAllTask([
-            ...filteredAllList,
-            { item: elem.item, activeTab: elem.activeTab },
-        ]);
+    const handleDeleteClick = (elem) => {
+        const filteredList = allTask.filter((x) => x.item !== elem.item);
+        setAllTask([...filteredList]);
+    };
+
+    const handleCompletedClick = (elem, e) => {
+        const elemToUpdate = allTask.findIndex((x) => x.item === elem.item);
+        allTask[elemToUpdate].status = e.target.value;
+        setAllTask([...allTask]);
+        checkStatusComplete();
+    };
+
+    const checkStatusComplete = () => {
+        const completeTask =
+            allTask.findIndex((x) => x.status === "Complete") >= 0;
+        if (completeTask) setAddStatus(true);
+        else setAddStatus(false);
     };
 
     return (
         <div className="todo-app">
+            <h1>TODO Application</h1>
             <AddItems
                 addItems={addItems}
                 onHandleAdd={handleAdd}
                 onHandleChange={handleChange}
             />
-            <TabList
-                tabName={tabList}
-                activeTabs={activeTabs}
-                onHandleTabClick={handleTabClick}
-            />
-            <TabContent
-                allTask={allTask}
-                activeTabs={activeTabs}
-                taskStatus={taskStatus}
-                handleActiveCompletedClick={handleActiveCompletedClick}
-            />
+            {allTask.length > 0 && (
+                <>
+                    <TabContent
+                        allTask={allTask}
+                        onHandleDeleteClick={handleDeleteClick}
+                        onHandleCompletedClick={handleCompletedClick}
+                    />
+
+                    {/* <div className="completed-list">
+                        {addStatus && <h2>Completed Tasks</h2>}
+                        {allTask.map(
+                            (x, i) =>
+                                x.status === "Complete" && (
+                                    <p key={`${x.item}-${i}`}>{x.item}</p>
+                                )
+                        )}
+                    </div> */}
+                </>
+            )}
         </div>
     );
 };

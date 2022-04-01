@@ -1,4 +1,30 @@
 .todo-app {
+    width: 50%;
+    margin: auto;
+    padding: 3rem;
+    font-size: 22px;
+    border: 1px solid;
+    border-radius: 20px;
+    height: 100%;
+    margin-top: 2rem;
+    @media only screen and (min-width: 320px) and (max-width: 768px) {
+        width: 100%;
+    }
+    h1 {
+        text-align: center;
+    }
+    form {
+        display: flex;
+        justify-content: space-evenly;
+        flex: 1;
+        margin-top: 2rem;
+        input {
+            width: 70%;
+            height: 30px;
+            border-radius: 15px;
+            padding-left: 20px;
+        }
+    }
     ul {
         list-style: none;
         display: flex;
@@ -11,9 +37,51 @@
             text-align: center;
         }
     }
-    .active {
-        background: red;
-        border-radius: 10px;
-        color: white;
+    button {
+        font-size: 18px;
+        border-radius: 15px;
+        padding: 0px 15px;
+    }
+    .complete {
+        text-decoration: line-through;
+    }
+    .completed-list {
+        text-align: center;
+    }
+    .content-playground {
+        margin-top: 3rem;
+        height: 40vh;
+        overflow: auto;
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0rem 1rem;
+            border-bottom: 1px solid #d5c9c9;
+            p {
+                text-indent: -1em;
+                margin-left: 1em;
+                width: 70%;
+            }
+            .button-group {
+                button {
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+                    svg {
+                        pointer-events: none;
+                    }
+                }
+                .complete-task {
+                    fill: green;
+                    color: green;
+                    stroke: none;
+                }
+                .delete-task {
+                    fill: red;
+                    color: red;
+                }
+            }
+        }
     }
 }
