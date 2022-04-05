@@ -23,6 +23,9 @@ body {
     background: #fff;
     padding-bottom: 2rem;
     @media only screen and (min-width: 320px) and (max-width: 768px) {
+        width: 88%;
+    }
+    @media only screen and (min-width: 820px) and (max-width: 1190px) {
         width: 100%;
     }
     .todo-wrapper {
@@ -51,6 +54,9 @@ body {
         padding-top: 2rem;
         margin-bottom: 1rem;
         color: #fff;
+        @media only screen and (min-width: 320px) and (max-width: 768px) {
+            font-size: 2rem;
+        }
     }
     form {
         display: flex;
@@ -68,6 +74,9 @@ body {
             border-bottom: 1px solid;
             &:focus {
                 outline: none;
+            }
+            @media only screen and (min-width: 320px) and (max-width: 768px) {
+                width: auto;
             }
         }
     }
@@ -124,6 +133,9 @@ body {
         height: 40vh;
         overflow: auto;
         color: #000;
+        @media only screen and (min-width: 320px) and (max-width: 768px) {
+            padding: 2rem 0rem 2rem;
+        }
         .content-wrapper {
             display: flex;
             align-items: center;
@@ -171,6 +183,9 @@ body {
                 background-color: transparent;
                 outline: none;
                 border: solid 1px transparent;
+                @media only screen and (min-width: 320px) and (max-width: 768px) {
+                    width: 100%;
+                }
             }
         }
     }
