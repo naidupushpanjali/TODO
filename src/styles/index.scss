@@ -105,6 +105,9 @@ body {
         text-align: center;
         color: #000;
         .content-playground .content-wrapper {
+            &:nth-child(odd) {
+                background-color: #ececec;
+            }
             p {
                 margin: 1em;
                 width: 100%;
