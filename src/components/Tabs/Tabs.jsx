@@ -31,9 +31,18 @@ const Tabs = () => {
     const handleDeleteClick = (elem) => {
         const filteredList = allTask.filter((x) => x.item !== elem.item);
         setAllTask([...filteredList]);
-        const deletedTask = filteredList.find(x => x.status === "Complete");
-        if(deletedTask) setAddStatus(true);
+        const deletedTask = filteredList.find((x) => x.status === "Complete");
+        if (deletedTask) setAddStatus(true);
         else setAddStatus(false);
+    };
+
+    const handleDeleteAll = () => {
+        var proceed = window.confirm("Are you sure you want to proceed?");
+        if (proceed) {
+            setAllTask([]);
+        } else {
+            setAllTask([...allTask]);
+        }
     };
 
     const handleCompletedClick = (elem, e) => {
@@ -104,6 +113,16 @@ const Tabs = () => {
                         )}
                         {allTask.length > 0 && (
                             <>
+                                {allTask.length > 1 ? (
+                                    <button
+                                        className="delete-btn"
+                                        onClick={handleDeleteAll}
+                                    >
+                                        Delete All
+                                    </button>
+                                ) : (
+                                    ""
+                                )}
                                 <TabContent
                                     allTask={allTask}
                                     disabled={disabled}
