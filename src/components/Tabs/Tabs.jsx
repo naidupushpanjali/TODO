@@ -20,6 +20,7 @@ const Tabs = () => {
         if (elem && taskExist < 0 && elem.trim() !== "") {
             setAllTask([...allTask, { status: "Active", item: elem }]);
             setAddItems("");
+            setExistingTask("");
         } else {
             setAddItems("");
             const currentElem = editInput.current.findIndex(
@@ -27,6 +28,10 @@ const Tabs = () => {
             );
             editInput.current[currentElem].focus();
             setExistingTask(editInput.current[currentElem].value);
+            setEditItems(elem);
+            allTask[currentElem].status = "Edit";
+            setDisabled(true);
+            alert("Task already exists !");
         }
     };
 
@@ -104,6 +109,17 @@ const Tabs = () => {
         addInput.current.focus();
     };
 
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 27) {
+            setExistingTask("");
+            const currentElem = editInput.current.findIndex(
+                (x) => x.value === e.target.value
+            );
+            allTask[currentElem].status = "Active";
+            setDisabled(false);
+        }
+    };
+
     return (
         <div className="todo-app">
             {!isCompletedTask ? (
@@ -135,6 +151,7 @@ const Tabs = () => {
                                     editItems={editItems}
                                     onHandleSave={handleSave}
                                     existingTask={existingTask}
+                                    onHandleKeyDown={handleKeyDown}
                                     onHandleEditClick={handleEditClick}
                                     onHandleEditChange={handleEditChange}
                                     onHandleDeleteClick={handleDeleteClick}

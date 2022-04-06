@@ -12,6 +12,7 @@ const TabContent = ({
     editInput,
     onHandleSave,
     existingTask,
+    onHandleKeyDown,
     onHandleEditClick,
     onHandleEditChange,
     onHandleDeleteClick,
@@ -41,7 +42,8 @@ const TabContent = ({
                                                     : elem.item
                                             }
                                             readOnly={
-                                                elem.status === "Edit"
+                                                elem.status === "Edit" ||
+                                                existingTask === elem.item
                                                     ? false
                                                     : true
                                             }
@@ -68,6 +70,7 @@ const TabContent = ({
                                             ref={(el) =>
                                                 (editInput.current[i] = el)
                                             }
+                                            onKeyDown={onHandleKeyDown}
                                         />
                                         <div className="button-group">
                                             {elem.status !== "Complete" ? (
@@ -110,7 +113,8 @@ const TabContent = ({
                                                 />
                                             </button>
                                             {elem.status !== "Complete" &&
-                                                (elem.status === "Edit" ? (
+                                                (elem.status === "Edit" ||
+                                                existingTask === elem.item ? (
                                                     <button
                                                         onClick={(event) =>
                                                             onHandleSave(
