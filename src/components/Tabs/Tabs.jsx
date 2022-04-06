@@ -135,7 +135,6 @@ const Tabs = () => {
                     <div className="todo-wrapper">
                         <AddItems
                             addItems={addItems}
-                            disabled={disabled}
                             addInput={addInput}
                             onHandleAdd={handleAdd}
                             onHandleChange={handleChange}
