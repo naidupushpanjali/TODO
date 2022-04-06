@@ -31,7 +31,7 @@ const Tabs = () => {
             setEditItems(elem);
             allTask[currentElem].status = "Edit";
             setDisabled(true);
-            alert("Task already exists !");
+            // alert("Task already exists !");
         }
     };
 
@@ -46,6 +46,7 @@ const Tabs = () => {
         if (deletedTask) setAddStatus(true);
         else setAddStatus(false);
         setDisabled(false);
+        document.querySelector('.add-items').disabled = false
         addInput.current.focus();
     };
 
@@ -108,6 +109,7 @@ const Tabs = () => {
         allTask[elemToUpdate].status = "Save";
         setAllTask([...allTask]);
         setDisabled(false);
+        document.querySelector('.add-items').disabled = false
         addInput.current.focus();
     };
 
@@ -119,6 +121,7 @@ const Tabs = () => {
             );
             allTask[currentElem].status = "Active";
             setDisabled(false);
+            document.querySelector('.add-items').disabled = false
             addInput.current.focus();
         }
     };
@@ -131,6 +134,7 @@ const Tabs = () => {
                     <div className="todo-wrapper">
                         <AddItems
                             addItems={addItems}
+                            disabled={disabled}
                             addInput={addInput}
                             onHandleAdd={handleAdd}
                             onHandleChange={handleChange}

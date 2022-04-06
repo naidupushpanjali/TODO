@@ -18,7 +18,7 @@ const AddItems = ({
                 className="add-items"
                 onChange={onHandleChange}
                 placeholder="Add Task name"
-                // disabled={disabled ? true : false}
+                disabled={disabled ? true : false}
 
             />
             <button

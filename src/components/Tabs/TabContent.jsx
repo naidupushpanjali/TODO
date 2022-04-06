@@ -29,7 +29,7 @@ const TabContent = ({
                                     <div
                                         className="content-wrapper"
                                         id={
-                                            elem.status === "Edit" ||
+                                            elem.status === "Edit" &&
                                             existingTask === elem.item
                                                 ? "focus"
                                                 : ""
@@ -42,7 +42,7 @@ const TabContent = ({
                                                     : elem.item
                                             }
                                             readOnly={
-                                                elem.status === "Edit" ||
+                                                elem.status === "Edit" &&
                                                 existingTask === elem.item
                                                     ? false
                                                     : true
@@ -113,7 +113,7 @@ const TabContent = ({
                                                 />
                                             </button>
                                             {elem.status !== "Complete" &&
-                                                (elem.status === "Edit" ||
+                                                (elem.status === "Edit" &&
                                                 existingTask === elem.item ? (
                                                     <button
                                                         onClick={(event) =>
