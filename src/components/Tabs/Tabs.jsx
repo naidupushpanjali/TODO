@@ -46,6 +46,7 @@ const Tabs = () => {
         if (deletedTask) setAddStatus(true);
         else setAddStatus(false);
         setDisabled(false);
+        addInput.current.focus();
     };
 
     const handleDeleteAll = () => {
@@ -118,6 +119,7 @@ const Tabs = () => {
             );
             allTask[currentElem].status = "Active";
             setDisabled(false);
+            addInput.current.focus();
         }
     };
 
