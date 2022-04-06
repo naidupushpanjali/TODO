@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TabContent from "./TabContent";
 import AddItems from "./AddItems";
 import ErrorComponent from "../ErrorBoundary/ErrorComponent";
 
 const Tabs = () => {
+    const editInput = useRef([]);
+    const addInput = useRef([]);
     const [allTask, setAllTask] = useState([]);
     const [addItems, setAddItems] = useState("");
-    const [isError, setIsError] = useState(false);
     const [editItems, setEditItems] = useState("");
     const [addStatus, setAddStatus] = useState(false);
     const [disabled, setDisabled] = useState(false);
+    const [existingTask, setExistingTask] = useState("");
     const [isCompletedTask, setIsCompletedTask] = useState(false);
 
     const handleAdd = (elem, e) => {
@@ -19,8 +21,12 @@ const Tabs = () => {
             setAllTask([...allTask, { status: "Active", item: elem }]);
             setAddItems("");
         } else {
-            setIsError(true);
-            setAddItems(elem);
+            setAddItems("");
+            const currentElem = editInput.current.findIndex(
+                (x) => x.value === elem
+            );
+            editInput.current[currentElem].focus();
+            setExistingTask(editInput.current[currentElem].value);
         }
     };
 
@@ -79,6 +85,10 @@ const Tabs = () => {
         setAllTask([...allTask], ...editItems);
         setEditItems(elem.item);
         setDisabled(true);
+        const currentElem = editInput.current.findIndex(
+            (x) => x.value === elem.item
+        );
+        editInput.current[currentElem].focus();
     };
 
     const handleEditChange = (e) => {
@@ -91,6 +101,7 @@ const Tabs = () => {
         allTask[elemToUpdate].status = "Save";
         setAllTask([...allTask]);
         setDisabled(false);
+        addInput.current.focus();
     };
 
     return (
@@ -101,16 +112,10 @@ const Tabs = () => {
                     <div className="todo-wrapper">
                         <AddItems
                             addItems={addItems}
-                            disabled={disabled}
+                            addInput={addInput}
                             onHandleAdd={handleAdd}
                             onHandleChange={handleChange}
                         />
-                        {isError && (
-                            <ErrorComponent
-                                allTask={allTask}
-                                addItems={addItems}
-                            />
-                        )}
                         {allTask.length > 0 && (
                             <>
                                 {allTask.length > 1 ? (
@@ -126,8 +131,10 @@ const Tabs = () => {
                                 <TabContent
                                     allTask={allTask}
                                     disabled={disabled}
+                                    editInput={editInput}
                                     editItems={editItems}
                                     onHandleSave={handleSave}
+                                    existingTask={existingTask}
                                     onHandleEditClick={handleEditClick}
                                     onHandleEditChange={handleEditChange}
                                     onHandleDeleteClick={handleDeleteClick}

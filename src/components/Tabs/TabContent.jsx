@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ReactComponent as Complete } from "../../assets/done.svg";
-import { ReactComponent as Delete } from "../../assets/delete.svg";
 import { ReactComponent as Edit } from "../../assets/edit.svg";
 import { ReactComponent as Save } from "../../assets/save.svg";
+import { ReactComponent as Complete } from "../../assets/done.svg";
+import { ReactComponent as Delete } from "../../assets/delete.svg";
 
 const TabContent = ({
     allTask,
     disabled,
     editItems,
+    editInput,
     onHandleSave,
+    existingTask,
     onHandleEditClick,
     onHandleEditChange,
     onHandleDeleteClick,
@@ -23,7 +25,15 @@ const TabContent = ({
                         allTask.map((elem, i) => (
                             <tr key={`${elem.item}-${i}`}>
                                 <td>
-                                    <div className="content-wrapper">
+                                    <div
+                                        className="content-wrapper"
+                                        id={
+                                            elem.status === "Edit" ||
+                                            existingTask === elem.item
+                                                ? "focus"
+                                                : ""
+                                        }
+                                    >
                                         <textarea
                                             value={
                                                 elem.status === "Edit"
@@ -38,8 +48,6 @@ const TabContent = ({
                                             className={
                                                 elem.status === "Complete"
                                                     ? "complete"
-                                                    : elem.status === "Edit"
-                                                    ? "focus"
                                                     : ""
                                             }
                                             onChange={(event) =>
@@ -52,6 +60,14 @@ const TabContent = ({
                                             }
                                             cols="50"
                                             maxLength="200"
+                                            onFocus={function (e) {
+                                                var val = e.target.value;
+                                                e.target.value = "";
+                                                e.target.value = val;
+                                            }}
+                                            ref={(el) =>
+                                                (editInput.current[i] = el)
+                                            }
                                         />
                                         <div className="button-group">
                                             {elem.status !== "Complete" ? (

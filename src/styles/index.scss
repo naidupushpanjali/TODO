@@ -146,7 +146,8 @@ body {
     .content-playground {
         padding: 2rem 1rem 2rem;
         height: 40vh;
-        overflow: auto;
+        overflow: hidden;
+        overflow-y: auto;
         color: #000;
         @media only screen and (min-width: 320px) and (max-width: 768px) {
             padding: 2rem 0rem 2rem;
@@ -186,9 +187,6 @@ body {
                 border: none;
                 background: transparent;
             }
-            .focus {
-                border: 1px solid blue;
-            }
             textarea {
                 border: none;
                 // width: 70%;
@@ -202,6 +200,12 @@ body {
                     width: 100%;
                 }
             }
+        }
+        #focus {
+            box-shadow: 0 0px 8px 3px rgb(0 0 0 / 20%),
+                0 6px 20px 0 rgb(0 0 0 / 19%);
+            transition-property: opacity, left, top, height;
+            transition-duration: 3s, 5s, 3s, 5s;
         }
     }
 }

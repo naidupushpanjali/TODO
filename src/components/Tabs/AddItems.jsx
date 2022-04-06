@@ -1,17 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const AddItems = ({ onHandleAdd, addItems, onHandleChange, disabled }) => {
+const AddItems = ({
+    addItems,
+    addInput,
+    disabled,
+    onHandleAdd,
+    onHandleChange,
+}) => {
     return (
         <form onSubmit={(event) => onHandleAdd(addItems, event)}>
             <input
                 autoFocus
                 type="text"
+                ref={addInput}
                 value={addItems}
                 className="add-items"
-                placeholder="Add Task name"
                 onChange={onHandleChange}
-                disabled={disabled ? true : false}
+                placeholder="Add Task name"
+                // disabled={disabled ? true : false}
+
             />
             <button
                 type="submit"
