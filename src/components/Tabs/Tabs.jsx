@@ -45,6 +45,7 @@ const Tabs = () => {
         const deletedTask = filteredList.find((x) => x.status === "Complete");
         if (deletedTask) setAddStatus(true);
         else setAddStatus(false);
+        setDisabled(false);
     };
 
     const handleDeleteAll = () => {
