@@ -93,6 +93,7 @@ const Tabs = () => {
         setAllTask([...allTask], ...editItems);
         setEditItems(elem.item);
         setDisabled(true);
+        setExistingTask(elem.item);
         const currentElem = editInput.current.findIndex(
             (x) => x.value === elem.item
         );
